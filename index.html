@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="app"></div>
+<script>
+  fetch("https://WHEEX-OFICIAL.github.io/WHEEX/index.json")
+    .then(r => r.json())
+    .then(json => {
+      function criar(e) {
+        let el = document.createElement(e.tag || "div");
+        if (e.attrs) for (let k in e.attrs) el.setAttribute(k, e.attrs[k]);
+        if (e.text) el.textContent = e.text;
+        if (e.children) e.children.forEach(c => el.appendChild(criar(c)));
+        return el;
+      }
+      document.getElementById("app").appendChild(criar(json));
+    })
+    .catch(e => document.getElementById("app").textContent = "Erro: " + e);
+</script>
+</body>
+</html>
