@@ -2,20 +2,64 @@
 <html>
 <body>
 <div id="app"></div>
+
 <script>
-  fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
-    .then(r => r.json())
-    .then(json => {
-      function criar(e) {
-        let el = document.createElement(e.tag || "div");
-        if (e.attrs) for (let k in e.attrs) el.setAttribute(k, e.attrs[k]);
-        if (e.text) el.textContent = e.text;
-        if (e.children) e.children.forEach(c => el.appendChild(criar(c)));
-        return el;
+  // Função para aplicar eventos dinamicamente
+  function aplicarEventos(el, eventos) {
+    for (let evento in eventos) {
+      el.addEventListener(evento, function(e) {
+        try {
+          eval(eventos[evento]);
+        } catch (err) {
+          console.error("Erro no evento:", err);
+        }
+      });
+    }
+  }
+
+  // Função de criação de elementos
+  function criarElemento(e) {
+    let el = document.createElement(e.tag || "div");
+
+    // Atributos normais
+    if (e.attrs) {
+      for (let k in e.attrs) {
+        if (k === "innerHTML") {
+          el.innerHTML = e.attrs[k];
+        } else {
+          el.setAttribute(k, e.attrs[k]);
+        }
       }
-      document.getElementById("app").appendChild(criar(json));
+    }
+
+    // Texto interno
+    if (e.text) el.textContent = e.text;
+
+    // Eventos (ex: onclick, onchange, etc)
+    if (e.events) {
+      aplicarEventos(el, e.events);
+    }
+
+    // Elementos filhos
+    if (e.children) {
+      e.children.forEach(child => {
+        el.appendChild(criarElemento(child));
+      });
+    }
+
+    return el;
+  }
+
+  // Carregar JSON externo
+  fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
+    .then(res => res.json())
+    .then(json => {
+      const root = criarElemento(json);
+      document.getElementById("app").appendChild(root);
     })
-    .catch(e => document.getElementById("app").textContent = "Erro: " + e);
+    .catch(err => {
+      document.getElementById("app").textContent = "Erro: " + err;
+    });
 </script>
 </body>
 </html>
