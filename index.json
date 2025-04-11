@@ -1,0 +1,19 @@
+{
+  "tag": "div",
+  "attrs": { "id": "root", "class": "container" },
+  "children": [
+    {
+      "tag": "h1",
+      "text": "Bem-vindo ao JSON Layout"
+    },
+    {
+      "tag": "p",
+      "text": "Esse HTML foi gerado a partir de um JSON puro."
+    },
+    {
+      "tag": "button",
+      "attrs": { "onclick": "alert('Botão clicado!')" },
+      "text": "Clique aqui"
+    }
+  ]
+}
