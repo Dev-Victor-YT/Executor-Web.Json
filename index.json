@@ -1,19 +1,30 @@
 {
   "tag": "div",
-  "attrs": { "id": "root", "class": "container" },
+  "attrs": {
+    "id": "container",
+    "style": "padding: 20px; background: #eee"
+  },
   "children": [
     {
-      "tag": "h1",
-      "text": "Bem-vindo ao JSON Layout"
-    },
-    {
-      "tag": "p",
-      "text": "Esse HTML foi gerado a partir de um JSON puro."
-    },
-    {
       "tag": "button",
-      "attrs": { "onclick": "alert('Botão clicado!')" },
-      "text": "Clique aqui"
+      "text": "Clique aqui",
+      "attrs": {
+        "id": "btn1",
+        "class": "meu-botao"
+      },
+      "events": {
+        "click": "alert('Botão clicado!')"
+      }
+    },
+    {
+      "tag": "input",
+      "attrs": {
+        "type": "text",
+        "placeholder": "Digite algo..."
+      },
+      "events": {
+        "change": "console.log('Texto alterado:', this.value)"
+      }
     }
   ]
 }
