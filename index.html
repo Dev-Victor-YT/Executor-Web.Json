@@ -1,183 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Executor Web com JSON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executor de JSON para HTML</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <div id="app"></div>
+
+  <div id="conteudoGerado"></div>
 
   <script>
-    // Função para aplicar eventos ao elemento
-    function aplicarEventos(el, eventos) {
-      eventos.forEach(evento => {
-        el.addEventListener(evento.event, function () {
-          try {
-            eval(evento.action);
-          } catch (err) {
-            console.error("Erro ao executar o evento:", err);
-          }
-        });
-      });
-    }
+    // Defina a URL do arquivo JSON aqui
+    const urlJson = "https://meusite.com/caminho/para/seu/arquivo.json"; // URL do seu arquivo JSON
 
-    // Função para criar o HTML a partir do JSON
-    function criarElemento(e) {
-      let el = document.createElement(e.tag || "div");
+    async function buscarJsonDaUrl(url) {
+      try {
+        const resposta = await fetch(url);
 
-      // Adiciona atributos ao elemento
-      if (e.attrs) {
-        for (let k in e.attrs) {
-          el.setAttribute(k, e.attrs[k]);
+        if (!resposta.ok) {
+          throw new Error("Erro ao buscar o JSON da URL");
         }
+
+        const json = await resposta.json();
+
+        // Gerar o conteúdo HTML com o JSON carregado
+        document.getElementById("conteudoGerado").innerHTML = executarJsonBiblioteca(json);
+      } catch (erro) {
+        console.error("Erro ao carregar o JSON: ", erro);
       }
-
-      // Adiciona texto ao elemento
-      if (e.text) el.textContent = e.text;
-
-      // Adiciona filhos ao elemento
-      if (e.children) {
-        e.children.forEach(child => {
-          el.appendChild(criarElemento(child));
-        });
-      }
-
-      return el;
     }
 
-    // Função para aplicar o CSS baseado no JSON
-    function aplicarCssJson(cssJson) {
-      const styleTag = document.createElement("style");
-      let cssText = "";
+    function executarJsonBiblioteca(json) {
+      let html = "";
 
-      for (let seletor in cssJson) {
-        cssText += seletor + " {";
-        const props = cssJson[seletor];
-        for (let prop in props) {
-          const cssProp = prop.replace(/([A-Z])/g, "-$1").toLowerCase(); // camelCase -> kebab-case
-          cssText += `${cssProp}:${props[prop]};`;
-        }
-        cssText += "} ";
-      }
-
-      styleTag.textContent = cssText;
-      document.head.appendChild(styleTag);
-    }
-
-    // Função principal para carregar o JSON e executar os elementos, CSS e JS
-    function carregarJson() {
-      const json = {
-        "html": {
-          "tag": "html",
-          "children": [
-            {
-              "tag": "head",
-              "children": [
-                {
-                  "tag": "meta",
-                  "attrs": {
-                    "charset": "UTF-8"
-                  }
-                },
-                {
-                  "tag": "meta",
-                  "attrs": {
-                    "name": "viewport",
-                    "content": "width=device-width, initial-scale=1.0"
-                  }
-                },
-                {
-                  "tag": "title",
-                  "text": "Exemplo de Web com JSON"
-                }
-              ]
-            },
-            {
-              "tag": "body",
-              "children": [
-                {
-                  "tag": "div",
-                  "attrs": {
-                    "id": "app"
-                  },
-                  "children": [
-                    {
-                      "tag": "h1",
-                      "text": "Bem-vindo ao Sistema Executor"
-                    },
-                    {
-                      "tag": "p",
-                      "text": "Esse é um exemplo de como executar HTML, CSS e JS usando JSON."
-                    },
-                    {
-                      "tag": "button",
-                      "attrs": {
-                        "id": "btnClick"
-                      },
-                      "text": "Clique aqui"
-                    }
-                  ]
-                }
-              ]
+      // Gerando a seção <head>
+      if (json.head) {
+        html += "<head>";
+        if (json.head.meta) {
+          json.head.meta.forEach(meta => {
+            html += "<meta ";
+            for (let chave in meta) {
+              html += `${chave}="${meta[chave]}" `;
             }
-          ]
-        },
-        "css": {
-          "body": {
-            "backgroundColor": "#f4f4f4",
-            "fontFamily": "Arial, sans-serif"
-          },
-          "#app": {
-            "padding": "20px",
-            "borderRadius": "8px",
-            "backgroundColor": "#fff",
-            "boxShadow": "0 4px 6px rgba(0, 0, 0, 0.1)"
-          },
-          "button": {
-            "backgroundColor": "#4CAF50",
-            "color": "white",
-            "border": "none",
-            "padding": "15px 32px",
-            "textAlign": "center",
-            "textDecoration": "none",
-            "display": "inline-block",
-            "fontSize": "16px",
-            "borderRadius": "4px"
-          }
-        },
-        "js": {
-          "events": [
-            {
-              "element": "#btnClick",
-              "event": "click",
-              "action": "alert('Botão clicado!')"
-            }
-          ]
+            html += ">";
+          });
         }
-      };
-
-      // Aplica o CSS
-      if (json.css) aplicarCssJson(json.css);
-
-      // Cria os elementos HTML
-      if (json.html) {
-        const root = criarElemento(json.html);
-        document.getElementById("app").appendChild(root);
+        if (json.head.link) {
+          json.head.link.forEach(link => {
+            html += `<link rel="${link.rel}" href="${link.href}">`;
+          });
+        }
+        html += "</head>";
       }
 
-      // Aplica os eventos JS
-      if (json.js && json.js.events) {
-        json.js.events.forEach(evento => {
-          const el = document.querySelector(evento.element);
-          if (el) {
-            aplicarEventos(el, [evento]);
+      // Gerando a seção <body>
+      if (json.body) {
+        html += "<body>";
+        for (let secao in json.body) {
+          let secaoContent = "";
+
+          if (typeof json.body[secao] === "object") {
+            let elemento = json.body[secao];
+
+            if (elemento.elemento) {
+              secaoContent += `<${elemento.elemento}`;
+
+              if (elemento.atributos) {
+                for (let chave in elemento.atributos) {
+                  secaoContent += ` ${chave}="${elemento.atributos[chave]}"`;
+                }
+              }
+
+              secaoContent += ">";
+
+              if (elemento.conteúdo) {
+                if (typeof elemento.conteúdo === "string") {
+                  secaoContent += elemento.conteúdo;
+                } else if (Array.isArray(elemento.conteúdo)) {
+                  elemento.conteúdo.forEach(child => {
+                    secaoContent += executarJsonBiblioteca({ body: { child } });
+                  });
+                }
+              }
+
+              secaoContent += `</${elemento.elemento}>`;
+            }
           }
-        });
+          html += secaoContent;
+        }
+        html += "</body>";
       }
+
+      return html;
     }
 
-    // Carregar a estrutura ao carregar a página
-    carregarJson();
+    // Chama a função para buscar o JSON da URL definida
+    buscarJsonDaUrl(urlJson);
   </script>
+
 </body>
 </html>
