@@ -2,109 +2,104 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Executor Web</title>
+  <title>Executor Web JSON</title>
 </head>
 <body>
-<div id="app">Carregando...</div>
+<div id="app">Carregando layout...</div>
 
 <script>
-  // Função segura para aplicar eventos
+  // Função para aplicar eventos
   function aplicarEventos(el, eventos) {
-    try {
-      for (let evento in eventos) {
-        el.addEventListener(evento, function(e) {
+    for (let tipo in eventos) {
+      try {
+        el.addEventListener(tipo, function(e) {
           try {
-            eval(eventos[evento]); // Atenção: eval só é seguro se o JSON for seu!
+            eval(eventos[tipo]);
           } catch (err) {
-            console.error("Erro ao executar evento:", err);
+            console.error("Erro no evento:", err);
           }
         });
+      } catch (err) {
+        console.error("Erro ao adicionar evento:", err);
       }
-    } catch (e) {
-      console.error("Erro geral nos eventos:", e);
     }
   }
 
-  // Função para criar um elemento a partir de objeto JSON
-  function criarElemento(e) {
+  // Função para criar elementos HTML a partir de JSON
+  function criarElemento(json) {
     try {
-      let el = document.createElement(e.tag || "div");
+      let el = document.createElement(json.tag || "div");
 
-      // Atributos normais
-      if (e.attrs) {
-        for (let k in e.attrs) {
+      // Atributos padrão
+      if (json.attrs) {
+        for (let k in json.attrs) {
           if (k === "innerHTML") {
-            el.innerHTML = e.attrs[k];
+            el.innerHTML = json.attrs[k];
           } else {
-            el.setAttribute(k, e.attrs[k]);
+            el.setAttribute(k, json.attrs[k]);
           }
         }
       }
 
-      // Texto interno
-      if (e.text) {
-        el.textContent = e.text;
+      // Texto
+      if (json.text) {
+        el.textContent = json.text;
       }
 
       // Estilos inline
-      if (e.style) {
-        for (let prop in e.style) {
-          el.style[prop] = e.style[prop];
+      if (json.style) {
+        for (let s in json.style) {
+          el.style[s] = json.style[s];
         }
       }
 
       // Eventos
-      if (e.events) {
-        aplicarEventos(el, e.events);
+      if (json.events) {
+        aplicarEventos(el, json.events);
       }
 
       // Elementos filhos
-      if (e.children && Array.isArray(e.children)) {
-        e.children.forEach(child => {
-          const filho = criarElemento(child);
+      if (json.children && Array.isArray(json.children)) {
+        json.children.forEach(child => {
+          let filho = criarElemento(child);
           if (filho) el.appendChild(filho);
         });
       }
 
       return el;
-    } catch (err) {
-      console.error("Erro ao criar elemento:", err);
+    } catch (e) {
+      console.error("Erro ao criar elemento:", e);
       return null;
     }
   }
 
-  // Aplica CSS global
+  // Função para aplicar CSS global via <style>
   function aplicarCSSGlobal(cssText) {
     try {
-      if (cssText) {
-        const style = document.createElement("style");
-        style.innerHTML = cssText;
-        document.head.appendChild(style);
-      }
-    } catch (err) {
-      console.error("Erro ao aplicar CSS global:", err);
+      const style = document.createElement("style");
+      style.innerHTML = cssText;
+      document.head.appendChild(style);
+    } catch (e) {
+      console.error("Erro ao aplicar CSS:", e);
     }
   }
 
-  // Carregar JSON e iniciar renderização
+  // Carregamento do JSON externo
   fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
     .then(res => res.json())
     .then(json => {
-      document.getElementById("app").innerHTML = ""; // Limpa o conteúdo inicial
-
-      if (json.css) aplicarCSSGlobal(json.css); // Aplica CSS
-
-      const raiz = criarElemento(json.html || json); // Monta HTML
-
+      document.getElementById("app").innerHTML = "";
+      if (json.css) aplicarCSSGlobal(json.css);
+      const raiz = criarElemento(json.html || json);
       if (raiz) {
         document.getElementById("app").appendChild(raiz);
       } else {
-        document.getElementById("app").textContent = "Erro ao criar layout.";
+        document.getElementById("app").textContent = "Erro ao montar layout.";
       }
     })
     .catch(err => {
       console.error("Erro ao carregar JSON:", err);
-      document.getElementById("app").textContent = "Erro ao carregar layout: " + err.message;
+      document.getElementById("app").textContent = "Erro no carregamento: " + err.message;
     });
 </script>
 </body>
