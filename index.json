@@ -1,44 +1,101 @@
 {
-  "type": "div",
-  "attributes": {
-    "class": "login-container"
-  },
-  "children": [
-    {
-      "type": "h2",
-      "content": "Login"
+  "html": {
+    "tag": "html",
+    "attributes": {
+      "lang": "pt-br"
     },
-    {
-      "type": "input",
-      "attributes": {
-        "type": "text",
-        "placeholder": "Usuário",
-        "id": "usuario"
-      }
-    },
-    {
-      "type": "input",
-      "attributes": {
-        "type": "password",
-        "placeholder": "Senha",
-        "id": "senha"
-      }
-    },
-    {
-      "type": "button",
-      "attributes": {
-        "onclick": "logar()"
+    "children": [
+      {
+        "tag": "head",
+        "children": [
+          {
+            "tag": "meta",
+            "attributes": {
+              "charset": "UTF-8"
+            }
+          },
+          {
+            "tag": "meta",
+            "attributes": {
+              "name": "viewport",
+              "content": "width=device-width, initial-scale=1.0"
+            }
+          },
+          {
+            "tag": "title",
+            "content": "Login"
+          },
+          {
+            "tag": "link",
+            "attributes": {
+              "rel": "stylesheet",
+              "href": "style.css"
+            }
+          }
+        ]
       },
-      "content": "Entrar"
-    }
-  ],
-  "style": {
-    "backgroundColor": "white",
-    "padding": "40px",
-    "borderRadius": "10px",
-    "boxShadow": "0 5px 15px rgba(0,0,0,0.3)",
-    "width": "100%",
-    "maxWidth": "400px",
-    "textAlign": "center"
+      {
+        "tag": "body",
+        "children": [
+          {
+            "tag": "div",
+            "attributes": {
+              "class": "login-container"
+            },
+            "children": [
+              {
+                "tag": "h2",
+                "content": "Login"
+              },
+              {
+                "tag": "form",
+                "attributes": {
+                  "id": "loginForm"
+                },
+                "children": [
+                  {
+                    "tag": "input",
+                    "attributes": {
+                      "type": "text",
+                      "id": "username",
+                      "placeholder": "Usuário",
+                      "required": "true"
+                    }
+                  },
+                  {
+                    "tag": "input",
+                    "attributes": {
+                      "type": "password",
+                      "id": "password",
+                      "placeholder": "Senha",
+                      "required": "true"
+                    }
+                  },
+                  {
+                    "tag": "button",
+                    "attributes": {
+                      "type": "submit"
+                    },
+                    "content": "Entrar"
+                  }
+                ]
+              },
+              {
+                "tag": "p",
+                "attributes": {
+                  "id": "errorMessage"
+                }
+              }
+            ]
+          },
+          {
+            "tag": "script",
+            "attributes": {
+              "src": "login.js"
+            }
+          }
+        ]
+      }
+    ]
   }
 }
