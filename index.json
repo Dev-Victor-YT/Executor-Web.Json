@@ -1,65 +1,94 @@
-[
-  {
-    "elemento": "div",
-    "atributos": {
-      "class": "tela-login"
-    },
-    "filhos": [
+{
+  "head": {
+    "meta": [
+      { "charset": "UTF-8" },
+      { "name": "viewport", "content": "width=device-width, initial-scale=1.0" }
+    ],
+    "link": [
       {
-        "elemento": "h1",
-        "atributos": {
-          "class": "titulo"
-        },
-        "conteúdo": "Bem-vindo"
-      },
-      {
-        "elemento": "form",
-        "atributos": {
-          "class": "formulario"
-        },
-        "filhos": [
-          {
-            "elemento": "label",
-            "atributos": {
-              "for": "email"
-            },
-            "conteúdo": "Email:"
-          },
-          {
-            "elemento": "input",
-            "atributos": {
-              "type": "email",
-              "id": "email",
-              "name": "email",
-              "placeholder": "Digite seu email"
-            }
-          },
-          {
-            "elemento": "label",
-            "atributos": {
-              "for": "senha"
-            },
-            "conteúdo": "Senha:"
-          },
-          {
-            "elemento": "input",
-            "atributos": {
-              "type": "password",
-              "id": "senha",
-              "name": "senha",
-              "placeholder": "Digite sua senha"
-            }
-          },
-          {
-            "elemento": "button",
-            "atributos": {
-              "type": "submit",
-              "class": "botao-login"
-            },
-            "conteúdo": "Entrar"
-          }
-        ]
+        "rel": "stylesheet",
+        "href": "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
       }
     ]
+  },
+  "body": {
+    "elemento": "div",
+    "atributos": {
+      "class": "d-flex justify-content-center align-items-center vh-100",
+      "style": "background-color: #eef1f5;"
+    },
+    "conteúdo": {
+      "elemento": "div",
+      "atributos": {
+        "class": "card p-4 shadow",
+        "style": "width: 100%; max-width: 400px;"
+      },
+      "conteúdo": [
+        {
+          "elemento": "h1",
+          "atributos": {
+            "class": "text-center mb-4"
+          },
+          "conteúdo": "Bem-vindo"
+        },
+        {
+          "elemento": "form",
+          "atributos": {
+            "action": "#",
+            "method": "POST"
+          },
+          "conteúdo": [
+            {
+              "elemento": "div",
+              "atributos": { "class": "form-group" },
+              "conteúdo": [
+                {
+                  "elemento": "label",
+                  "atributos": { "for": "email" },
+                  "conteúdo": "Email"
+                },
+                {
+                  "elemento": "input",
+                  "atributos": {
+                    "type": "email",
+                    "class": "form-control",
+                    "id": "email",
+                    "placeholder": "Digite seu email"
+                  }
+                }
+              ]
+            },
+            {
+              "elemento": "div",
+              "atributos": { "class": "form-group" },
+              "conteúdo": [
+                {
+                  "elemento": "label",
+                  "atributos": { "for": "senha" },
+                  "conteúdo": "Senha"
+                },
+                {
+                  "elemento": "input",
+                  "atributos": {
+                    "type": "password",
+                    "class": "form-control",
+                    "id": "senha",
+                    "placeholder": "Digite sua senha"
+                  }
+                }
+              ]
+            },
+            {
+              "elemento": "button",
+              "atributos": {
+                "type": "submit",
+                "class": "btn btn-primary btn-block"
+              },
+              "conteúdo": "Entrar"
+            }
+          ]
+        }
+      ]
+    }
   }
-]
+}
