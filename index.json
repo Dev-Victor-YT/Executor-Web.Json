@@ -1,81 +1,44 @@
 {
-  "css": {
-    "body": {
-      "margin": "0",
-      "padding": "0",
-      "fontFamily": "Arial, sans-serif",
-      "backgroundColor": "#f0f2f5",
-      "display": "flex",
-      "justifyContent": "center",
-      "alignItems": "center",
-      "height": "100vh"
-    },
-    ".login-container": {
-      "backgroundColor": "#fff",
-      "padding": "40px",
-      "borderRadius": "8px",
-      "boxShadow": "0 2px 10px rgba(0,0,0,0.1)",
-      "width": "100%",
-      "maxWidth": "350px"
-    },
-    ".login-container h2": {
-      "marginBottom": "20px",
-      "textAlign": "center",
-      "color": "#333"
-    },
-    ".login-container input": {
-      "width": "100%",
-      "padding": "10px",
-      "marginBottom": "15px",
-      "border": "1px solid #ccc",
-      "borderRadius": "4px",
-      "fontSize": "14px"
-    },
-    ".login-container button": {
-      "width": "100%",
-      "padding": "10px",
-      "backgroundColor": "#1877f2",
-      "color": "#fff",
-      "border": "none",
-      "borderRadius": "4px",
-      "fontSize": "16px",
-      "cursor": "pointer"
-    },
-    ".login-container button:hover": {
-      "backgroundColor": "#165ecb"
-    }
+  "type": "div",
+  "attributes": {
+    "class": "login-container"
   },
-  "html": {
-    "tag": "div",
-    "attrs": {
-      "class": "login-container"
+  "children": [
+    {
+      "type": "h2",
+      "content": "Login"
     },
-    "children": [
-      {
-        "tag": "h2",
-        "text": "Login"
-      },
-      {
-        "tag": "input",
-        "attrs": {
-          "type": "text",
-          "placeholder": "Email"
-        }
-      },
-      {
-        "tag": "input",
-        "attrs": {
-          "type": "password",
-          "placeholder": "Senha"
-        }
-      },
-      {
-        "tag": "button",
-        "text": "Entrar",
-        "events": {
-          "click": "alert('Login enviado!')"
-        }
+    {
+      "type": "input",
+      "attributes": {
+        "type": "text",
+        "placeholder": "Usuário",
+        "id": "usuario"
       }
-    ]
+    },
+    {
+      "type": "input",
+      "attributes": {
+        "type": "password",
+        "placeholder": "Senha",
+        "id": "senha"
+      }
+    },
+    {
+      "type": "button",
+      "attributes": {
+        "onclick": "logar()"
+      },
+      "content": "Entrar"
+    }
+  ],
+  "style": {
+    "backgroundColor": "white",
+    "padding": "40px",
+    "borderRadius": "10px",
+    "boxShadow": "0 5px 15px rgba(0,0,0,0.3)",
+    "width": "100%",
+    "maxWidth": "400px",
+    "textAlign": "center"
   }
 }
