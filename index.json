@@ -1,36 +1,65 @@
-{
-  "html": {
-    "tag": "div",
-    "attributes": {
-      "id": "app",
-      "style": "padding: 20px; font-family: Arial;"
+[
+  {
+    "elemento": "div",
+    "atributos": {
+      "class": "tela-login"
     },
-    "children": [
+    "filhos": [
       {
-        "tag": "h1",
-        "text": "Bem-vindo à minha Web JSON"
-      },
-      {
-        "tag": "p",
-        "text": "Esta é uma página gerada com estrutura JSON."
-      },
-      {
-        "tag": "button",
-        "attributes": {
-          "onclick": "alert('Você clicou no botão!')",
-          "style": "padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px;"
+        "elemento": "h1",
+        "atributos": {
+          "class": "titulo"
         },
-        "text": "Clique aqui"
+        "conteúdo": "Bem-vindo"
+      },
+      {
+        "elemento": "form",
+        "atributos": {
+          "class": "formulario"
+        },
+        "filhos": [
+          {
+            "elemento": "label",
+            "atributos": {
+              "for": "email"
+            },
+            "conteúdo": "Email:"
+          },
+          {
+            "elemento": "input",
+            "atributos": {
+              "type": "email",
+              "id": "email",
+              "name": "email",
+              "placeholder": "Digite seu email"
+            }
+          },
+          {
+            "elemento": "label",
+            "atributos": {
+              "for": "senha"
+            },
+            "conteúdo": "Senha:"
+          },
+          {
+            "elemento": "input",
+            "atributos": {
+              "type": "password",
+              "id": "senha",
+              "name": "senha",
+              "placeholder": "Digite sua senha"
+            }
+          },
+          {
+            "elemento": "button",
+            "atributos": {
+              "type": "submit",
+              "class": "botao-login"
+            },
+            "conteúdo": "Entrar"
+          }
+        ]
       }
     ]
-  },
-  "css": {
-    "body": {
-      "margin": "0",
-      "backgroundColor": "#f4f4f4"
-    }
-  },
-  "js": {
-    "init": "console.log('Web JSON carregada com sucesso');"
   }
-}
+]
