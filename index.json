@@ -1,58 +1,40 @@
 {
-  "css": {
-    "body": {
-      "backgroundColor": "#f4f4f4",
-      "fontFamily": "Arial, sans-serif"
-    },
-    ".login-container": {
-      "backgroundColor": "white",
-      "padding": "20px",
-      "borderRadius": "8px",
-      "boxShadow": "0 4px 6px rgba(0, 0, 0, 0.1)"
-    }
-  },
-  "html": {
-    "tag": "div",
-    "attrs": {
-      "class": "login-container"
-    },
-    "children": [
-      {
-        "tag": "h2",
-        "text": "Login"
-      },
-      {
-        "tag": "form",
-        "attrs": {
-          "id": "loginForm"
-        },
-        "children": [
-          {
-            "tag": "input",
-            "attrs": {
-              "type": "text",
-              "id": "username",
-              "placeholder": "Usuário"
-            }
-          },
-          {
-            "tag": "input",
-            "attrs": {
-              "type": "password",
-              "id": "password",
-              "placeholder": "Senha"
-            }
-          },
-          {
-            "tag": "button",
-            "attrs": {
-              "type": "submit"
-            },
-            "text": "Entrar"
-          }
-        ]
-      }
+  "head": {
+    "meta": [
+      { "charset": "UTF-8" },
+      { "name": "viewport", "content": "width=device-width, initial-scale=1.0" }
+    ],
+    "link": [
+      { "rel": "stylesheet", "href": "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" }
     ]
   },
-  "js": "console.log('JavaScript carregado com sucesso!');"
+  "body": {
+    "header": {
+      "elemento": "h1",
+      "atributos": {
+        "class": "text-center"
+      },
+      "conteúdo": "Bem-vindo ao Meu Site"
+    },
+    "main": {
+      "elemento": "div",
+      "atributos": {
+        "class": "container mt-5"
+      },
+      "conteúdo": [
+        {
+          "elemento": "button",
+          "atributos": {
+            "class": "btn btn-primary",
+            "onclick": "alert('Botão clicado!')"
+          },
+          "conteúdo": "Clique Aqui"
+        },
+        {
+          "elemento": "p",
+          "conteúdo": "Este é um parágrafo na minha página."
+        }
+      ]
+    }
+  }
 }
