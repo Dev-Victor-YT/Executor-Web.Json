@@ -1,38 +1,116 @@
 {
   "head": {
     "meta": [
-      { "charset": "UTF-8" },
-      { "name": "viewport", "content": "width=device-width, initial-scale=1.0" }
+      {
+        "charset": "UTF-8"
+      },
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1.0"
+      }
     ],
     "link": [
-      { "rel": "stylesheet", "href": "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" }
+      {
+        "rel": "stylesheet",
+        "href": "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      }
     ]
   },
   "body": {
-    "header": {
-      "elemento": "h1",
-      "atributos": {
-        "class": "text-center"
-      },
-      "conteúdo": "Bem-vindo ao Meu Site"
-    },
-    "main": {
+    "container": {
       "elemento": "div",
       "atributos": {
-        "class": "container mt-5"
+        "class": "container d-flex justify-content-center align-items-center min-vh-100"
       },
       "conteúdo": [
         {
-          "elemento": "button",
+          "elemento": "div",
           "atributos": {
-            "class": "btn btn-primary",
-            "onclick": "alert('Botão clicado!')"
+            "class": "card",
+            "style": "width: 18rem;"
           },
-          "conteúdo": "Clique Aqui"
-        },
-        {
-          "elemento": "p",
-          "conteúdo": "Este é um parágrafo na minha página."
+          "conteúdo": [
+            {
+              "elemento": "div",
+              "atributos": {
+                "class": "card-body"
+              },
+              "conteúdo": [
+                {
+                  "elemento": "h5",
+                  "atributos": {
+                    "class": "card-title text-center"
+                  },
+                  "conteúdo": "Login"
+                },
+                {
+                  "elemento": "form",
+                  "atributos": {
+                    "action": "#",
+                    "method": "POST"
+                  },
+                  "conteúdo": [
+                    {
+                      "elemento": "div",
+                      "atributos": {
+                        "class": "form-group"
+                      },
+                      "conteúdo": [
+                        {
+                          "elemento": "label",
+                          "atributos": {
+                            "for": "username"
+                          },
+                          "conteúdo": "Usuário"
+                        },
+                        {
+                          "elemento": "input",
+                          "atributos": {
+                            "type": "text",
+                            "class": "form-control",
+                            "id": "username",
+                            "placeholder": "Digite seu nome de usuário"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "elemento": "div",
+                      "atributos": {
+                        "class": "form-group"
+                      },
+                      "conteúdo": [
+                        {
+                          "elemento": "label",
+                          "atributos": {
+                            "for": "password"
+                          },
+                          "conteúdo": "Senha"
+                        },
+                        {
+                          "elemento": "input",
+                          "atributos": {
+                            "type": "password",
+                            "class": "form-control",
+                            "id": "password",
+                            "placeholder": "Digite sua senha"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "elemento": "button",
+                      "atributos": {
+                        "type": "submit",
+                        "class": "btn btn-primary btn-block"
+                      },
+                      "conteúdo": "Entrar"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }
