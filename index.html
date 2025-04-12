@@ -2,12 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Executor JSON Web com CSS estruturado</title>
+  <title>Executor JSON Web com CSS Estruturado</title>
 </head>
 <body>
   <div id="app"></div>
 
   <script>
+    // Função para aplicar eventos ao elemento
     function aplicarEventos(el, eventos) {
       for (let evento in eventos) {
         el.addEventListener(evento, function (e) {
@@ -20,9 +21,11 @@
       }
     }
 
+    // Função para criar o elemento HTML baseado no JSON
     function criarElemento(e) {
       let el = document.createElement(e.tag || "div");
 
+      // Adiciona atributos ao elemento
       if (e.attrs) {
         for (let k in e.attrs) {
           if (k === "innerHTML") {
@@ -33,18 +36,22 @@
         }
       }
 
+      // Adiciona texto ao elemento
       if (e.text) el.textContent = e.text;
 
+      // Aplica estilo se presente
       if (e.style) {
         for (let prop in e.style) {
           el.style[prop] = e.style[prop];
         }
       }
 
+      // Aplica eventos se presentes
       if (e.events) {
         aplicarEventos(el, e.events);
       }
 
+      // Adiciona filhos se presentes
       if (e.children) {
         e.children.forEach(child => {
           el.appendChild(criarElemento(child));
@@ -54,11 +61,12 @@
       return el;
     }
 
-    // Aplica CSS baseado em JSON estruturado
+    // Função para aplicar o CSS baseado em JSON
     function aplicarCssJson(cssJson) {
       const styleTag = document.createElement("style");
       let cssText = "";
 
+      // Converte o JSON de CSS para formato CSS
       for (let seletor in cssJson) {
         cssText += seletor + " {";
         const props = cssJson[seletor];
@@ -73,18 +81,32 @@
       document.head.appendChild(styleTag);
     }
 
-    fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
-      .then(res => res.json())
-      .then(json => {
-        if (json.css) aplicarCssJson(json.css);
-        if (json.html) {
-          const root = criarElemento(json.html);
-          document.getElementById("app").appendChild(root);
-        }
-      })
-      .catch(err => {
-        document.getElementById("app").textContent = "Erro ao carregar JSON: " + err;
-      });
+    // Função para carregar o JSON e executar o HTML, CSS e JS
+    function carregarJson() {
+      fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
+        .then(res => res.json())
+        .then(json => {
+          if (json.css) aplicarCssJson(json.css); // Aplica o CSS
+          if (json.html) {
+            const root = criarElemento(json.html); // Cria os elementos HTML
+            document.getElementById("app").appendChild(root);
+          }
+          if (json.js) {
+            // Executa o código JavaScript se presente
+            try {
+              eval(json.js);
+            } catch (err) {
+              console.error("Erro ao executar o JavaScript:", err);
+            }
+          }
+        })
+        .catch(err => {
+          document.getElementById("app").textContent = "Erro ao carregar JSON: " + err;
+        });
+    }
+
+    // Carrega o JSON ao carregar a página
+    carregarJson();
   </script>
 </body>
 </html>
