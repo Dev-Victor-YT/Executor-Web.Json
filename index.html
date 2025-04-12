@@ -2,105 +2,89 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Executor Web JSON</title>
+  <title>Executor JSON Web com CSS estruturado</title>
 </head>
 <body>
-<div id="app">Carregando layout...</div>
+  <div id="app"></div>
 
-<script>
-  // Função para aplicar eventos
-  function aplicarEventos(el, eventos) {
-    for (let tipo in eventos) {
-      try {
-        el.addEventListener(tipo, function(e) {
+  <script>
+    function aplicarEventos(el, eventos) {
+      for (let evento in eventos) {
+        el.addEventListener(evento, function (e) {
           try {
-            eval(eventos[tipo]);
+            eval(eventos[evento]);
           } catch (err) {
             console.error("Erro no evento:", err);
           }
         });
-      } catch (err) {
-        console.error("Erro ao adicionar evento:", err);
       }
     }
-  }
 
-  // Função para criar elementos HTML a partir de JSON
-  function criarElemento(json) {
-    try {
-      let el = document.createElement(json.tag || "div");
+    function criarElemento(e) {
+      let el = document.createElement(e.tag || "div");
 
-      // Atributos padrão
-      if (json.attrs) {
-        for (let k in json.attrs) {
+      if (e.attrs) {
+        for (let k in e.attrs) {
           if (k === "innerHTML") {
-            el.innerHTML = json.attrs[k];
+            el.innerHTML = e.attrs[k];
           } else {
-            el.setAttribute(k, json.attrs[k]);
+            el.setAttribute(k, e.attrs[k]);
           }
         }
       }
 
-      // Texto
-      if (json.text) {
-        el.textContent = json.text;
-      }
+      if (e.text) el.textContent = e.text;
 
-      // Estilos inline
-      if (json.style) {
-        for (let s in json.style) {
-          el.style[s] = json.style[s];
+      if (e.style) {
+        for (let prop in e.style) {
+          el.style[prop] = e.style[prop];
         }
       }
 
-      // Eventos
-      if (json.events) {
-        aplicarEventos(el, json.events);
+      if (e.events) {
+        aplicarEventos(el, e.events);
       }
 
-      // Elementos filhos
-      if (json.children && Array.isArray(json.children)) {
-        json.children.forEach(child => {
-          let filho = criarElemento(child);
-          if (filho) el.appendChild(filho);
+      if (e.children) {
+        e.children.forEach(child => {
+          el.appendChild(criarElemento(child));
         });
       }
 
       return el;
-    } catch (e) {
-      console.error("Erro ao criar elemento:", e);
-      return null;
     }
-  }
 
-  // Função para aplicar CSS global via <style>
-  function aplicarCSSGlobal(cssText) {
-    try {
-      const style = document.createElement("style");
-      style.innerHTML = cssText;
-      document.head.appendChild(style);
-    } catch (e) {
-      console.error("Erro ao aplicar CSS:", e);
-    }
-  }
+    // Aplica CSS baseado em JSON estruturado
+    function aplicarCssJson(cssJson) {
+      const styleTag = document.createElement("style");
+      let cssText = "";
 
-  // Carregamento do JSON externo
-  fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
-    .then(res => res.json())
-    .then(json => {
-      document.getElementById("app").innerHTML = "";
-      if (json.css) aplicarCSSGlobal(json.css);
-      const raiz = criarElemento(json.html || json);
-      if (raiz) {
-        document.getElementById("app").appendChild(raiz);
-      } else {
-        document.getElementById("app").textContent = "Erro ao montar layout.";
+      for (let seletor in cssJson) {
+        cssText += seletor + " {";
+        const props = cssJson[seletor];
+        for (let prop in props) {
+          const cssProp = prop.replace(/([A-Z])/g, "-$1").toLowerCase(); // camelCase -> kebab-case
+          cssText += `${cssProp}:${props[prop]};`;
+        }
+        cssText += "} ";
       }
-    })
-    .catch(err => {
-      console.error("Erro ao carregar JSON:", err);
-      document.getElementById("app").textContent = "Erro no carregamento: " + err.message;
-    });
-</script>
+
+      styleTag.textContent = cssText;
+      document.head.appendChild(styleTag);
+    }
+
+    fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
+      .then(res => res.json())
+      .then(json => {
+        if (json.css) aplicarCssJson(json.css);
+        if (json.html) {
+          const root = criarElemento(json.html);
+          document.getElementById("app").appendChild(root);
+        }
+      })
+      .catch(err => {
+        document.getElementById("app").textContent = "Erro ao carregar JSON: " + err;
+      });
+  </script>
 </body>
 </html>
