@@ -1,89 +1,58 @@
 {
-  "html": {
-    "tag": "html",
-    "children": [
-      {
-        "tag": "head",
-        "children": [
-          {
-            "tag": "meta",
-            "attrs": {
-              "charset": "UTF-8"
-            }
-          },
-          {
-            "tag": "meta",
-            "attrs": {
-              "name": "viewport",
-              "content": "width=device-width, initial-scale=1.0"
-            }
-          },
-          {
-            "tag": "title",
-            "text": "Exemplo de Web com JSON"
-          }
-        ]
-      },
-      {
-        "tag": "body",
-        "children": [
-          {
-            "tag": "div",
-            "attrs": {
-              "id": "app"
-            },
-            "children": [
-              {
-                "tag": "h1",
-                "text": "Bem-vindo ao Sistema Executor"
-              },
-              {
-                "tag": "p",
-                "text": "Esse é um exemplo de como executar HTML, CSS e JS usando JSON."
-              },
-              {
-                "tag": "button",
-                "attrs": {
-                  "id": "btnClick"
-                },
-                "text": "Clique aqui"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "css": {
     "body": {
       "backgroundColor": "#f4f4f4",
       "fontFamily": "Arial, sans-serif"
     },
-    "#app": {
+    ".login-container": {
+      "backgroundColor": "white",
       "padding": "20px",
       "borderRadius": "8px",
-      "backgroundColor": "#fff",
       "boxShadow": "0 4px 6px rgba(0, 0, 0, 0.1)"
-    },
-    "button": {
-      "backgroundColor": "#4CAF50",
-      "color": "white",
-      "border": "none",
-      "padding": "15px 32px",
-      "textAlign": "center",
-      "textDecoration": "none",
-      "display": "inline-block",
-      "fontSize": "16px",
-      "borderRadius": "4px"
     }
   },
-  "js": {
-    "events": [
+  "html": {
+    "tag": "div",
+    "attrs": {
+      "class": "login-container"
+    },
+    "children": [
       {
-        "element": "#btnClick",
-        "event": "click",
-        "action": "alert('Botão clicado!')"
+        "tag": "h2",
+        "text": "Login"
+      },
+      {
+        "tag": "form",
+        "attrs": {
+          "id": "loginForm"
+        },
+        "children": [
+          {
+            "tag": "input",
+            "attrs": {
+              "type": "text",
+              "id": "username",
+              "placeholder": "Usuário"
+            }
+          },
+          {
+            "tag": "input",
+            "attrs": {
+              "type": "password",
+              "id": "password",
+              "placeholder": "Senha"
+            }
+          },
+          {
+            "tag": "button",
+            "attrs": {
+              "type": "submit"
+            },
+            "text": "Entrar"
+          }
+        ]
       }
     ]
-  }
+  },
+  "js": "console.log('JavaScript carregado com sucesso!');"
 }
