@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Executor JSON Web com CSS Estruturado</title>
+  <title>Executor Web com JSON</title>
 </head>
 <body>
   <div id="app"></div>
@@ -10,48 +10,32 @@
   <script>
     // Função para aplicar eventos ao elemento
     function aplicarEventos(el, eventos) {
-      for (let evento in eventos) {
-        el.addEventListener(evento, function (e) {
+      eventos.forEach(evento => {
+        el.addEventListener(evento.event, function () {
           try {
-            eval(eventos[evento]);
+            eval(evento.action);
           } catch (err) {
-            console.error("Erro no evento:", err);
+            console.error("Erro ao executar o evento:", err);
           }
         });
-      }
+      });
     }
 
-    // Função para criar o elemento HTML baseado no JSON
+    // Função para criar o HTML a partir do JSON
     function criarElemento(e) {
       let el = document.createElement(e.tag || "div");
 
       // Adiciona atributos ao elemento
       if (e.attrs) {
         for (let k in e.attrs) {
-          if (k === "innerHTML") {
-            el.innerHTML = e.attrs[k];
-          } else {
-            el.setAttribute(k, e.attrs[k]);
-          }
+          el.setAttribute(k, e.attrs[k]);
         }
       }
 
       // Adiciona texto ao elemento
       if (e.text) el.textContent = e.text;
 
-      // Aplica estilo se presente
-      if (e.style) {
-        for (let prop in e.style) {
-          el.style[prop] = e.style[prop];
-        }
-      }
-
-      // Aplica eventos se presentes
-      if (e.events) {
-        aplicarEventos(el, e.events);
-      }
-
-      // Adiciona filhos se presentes
+      // Adiciona filhos ao elemento
       if (e.children) {
         e.children.forEach(child => {
           el.appendChild(criarElemento(child));
@@ -61,12 +45,11 @@
       return el;
     }
 
-    // Função para aplicar o CSS baseado em JSON
+    // Função para aplicar o CSS baseado no JSON
     function aplicarCssJson(cssJson) {
       const styleTag = document.createElement("style");
       let cssText = "";
 
-      // Converte o JSON de CSS para formato CSS
       for (let seletor in cssJson) {
         cssText += seletor + " {";
         const props = cssJson[seletor];
@@ -81,31 +64,119 @@
       document.head.appendChild(styleTag);
     }
 
-    // Função para carregar o JSON e executar o HTML, CSS e JS
+    // Função principal para carregar o JSON e executar os elementos, CSS e JS
     function carregarJson() {
-      fetch("https://dev-victor-yt.github.io/Executor-Web.Json/index.json")
-        .then(res => res.json())
-        .then(json => {
-          if (json.css) aplicarCssJson(json.css); // Aplica o CSS
-          if (json.html) {
-            const root = criarElemento(json.html); // Cria os elementos HTML
-            document.getElementById("app").appendChild(root);
-          }
-          if (json.js) {
-            // Executa o código JavaScript se presente
-            try {
-              eval(json.js);
-            } catch (err) {
-              console.error("Erro ao executar o JavaScript:", err);
+      const json = {
+        "html": {
+          "tag": "html",
+          "children": [
+            {
+              "tag": "head",
+              "children": [
+                {
+                  "tag": "meta",
+                  "attrs": {
+                    "charset": "UTF-8"
+                  }
+                },
+                {
+                  "tag": "meta",
+                  "attrs": {
+                    "name": "viewport",
+                    "content": "width=device-width, initial-scale=1.0"
+                  }
+                },
+                {
+                  "tag": "title",
+                  "text": "Exemplo de Web com JSON"
+                }
+              ]
+            },
+            {
+              "tag": "body",
+              "children": [
+                {
+                  "tag": "div",
+                  "attrs": {
+                    "id": "app"
+                  },
+                  "children": [
+                    {
+                      "tag": "h1",
+                      "text": "Bem-vindo ao Sistema Executor"
+                    },
+                    {
+                      "tag": "p",
+                      "text": "Esse é um exemplo de como executar HTML, CSS e JS usando JSON."
+                    },
+                    {
+                      "tag": "button",
+                      "attrs": {
+                        "id": "btnClick"
+                      },
+                      "text": "Clique aqui"
+                    }
+                  ]
+                }
+              ]
             }
+          ]
+        },
+        "css": {
+          "body": {
+            "backgroundColor": "#f4f4f4",
+            "fontFamily": "Arial, sans-serif"
+          },
+          "#app": {
+            "padding": "20px",
+            "borderRadius": "8px",
+            "backgroundColor": "#fff",
+            "boxShadow": "0 4px 6px rgba(0, 0, 0, 0.1)"
+          },
+          "button": {
+            "backgroundColor": "#4CAF50",
+            "color": "white",
+            "border": "none",
+            "padding": "15px 32px",
+            "textAlign": "center",
+            "textDecoration": "none",
+            "display": "inline-block",
+            "fontSize": "16px",
+            "borderRadius": "4px"
           }
-        })
-        .catch(err => {
-          document.getElementById("app").textContent = "Erro ao carregar JSON: " + err;
+        },
+        "js": {
+          "events": [
+            {
+              "element": "#btnClick",
+              "event": "click",
+              "action": "alert('Botão clicado!')"
+            }
+          ]
+        }
+      };
+
+      // Aplica o CSS
+      if (json.css) aplicarCssJson(json.css);
+
+      // Cria os elementos HTML
+      if (json.html) {
+        const root = criarElemento(json.html);
+        document.getElementById("app").appendChild(root);
+      }
+
+      // Aplica os eventos JS
+      if (json.js && json.js.events) {
+        json.js.events.forEach(evento => {
+          const el = document.querySelector(evento.element);
+          if (el) {
+            aplicarEventos(el, [evento]);
+          }
         });
+      }
     }
 
-    // Carrega o JSON ao carregar a página
+    // Carregar a estrutura ao carregar a página
     carregarJson();
   </script>
 </body>
