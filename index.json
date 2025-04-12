@@ -1,36 +1,26 @@
 {
   "html": {
     "tag": "html",
-    "attributes": {
-      "lang": "pt-br"
-    },
     "children": [
       {
         "tag": "head",
         "children": [
           {
             "tag": "meta",
-            "attributes": {
+            "attrs": {
               "charset": "UTF-8"
             }
           },
           {
             "tag": "meta",
-            "attributes": {
+            "attrs": {
               "name": "viewport",
               "content": "width=device-width, initial-scale=1.0"
             }
           },
           {
             "tag": "title",
-            "content": "Login"
-          },
-          {
-            "tag": "link",
-            "attributes": {
-              "rel": "stylesheet",
-              "href": "style.css"
-            }
+            "text": "Exemplo de Web com JSON"
           }
         ]
       },
@@ -39,62 +29,60 @@
         "children": [
           {
             "tag": "div",
-            "attributes": {
-              "class": "login-container"
+            "attrs": {
+              "id": "app"
             },
             "children": [
               {
-                "tag": "h2",
-                "content": "Login"
-              },
-              {
-                "tag": "form",
-                "attributes": {
-                  "id": "loginForm"
-                },
-                "children": [
-                  {
-                    "tag": "input",
-                    "attributes": {
-                      "type": "text",
-                      "id": "username",
-                      "placeholder": "Usuário",
-                      "required": "true"
-                    }
-                  },
-                  {
-                    "tag": "input",
-                    "attributes": {
-                      "type": "password",
-                      "id": "password",
-                      "placeholder": "Senha",
-                      "required": "true"
-                    }
-                  },
-                  {
-                    "tag": "button",
-                    "attributes": {
-                      "type": "submit"
-                    },
-                    "content": "Entrar"
-                  }
-                ]
+                "tag": "h1",
+                "text": "Bem-vindo ao Sistema Executor"
               },
               {
                 "tag": "p",
-                "attributes": {
-                  "id": "errorMessage"
-                }
+                "text": "Esse é um exemplo de como executar HTML, CSS e JS usando JSON."
+              },
+              {
+                "tag": "button",
+                "attrs": {
+                  "id": "btnClick"
+                },
+                "text": "Clique aqui"
               }
             ]
-          },
-          {
-            "tag": "script",
-            "attributes": {
-              "src": "login.js"
-            }
           }
         ]
+      }
+    ]
+  },
+  "css": {
+    "body": {
+      "backgroundColor": "#f4f4f4",
+      "fontFamily": "Arial, sans-serif"
+    },
+    "#app": {
+      "padding": "20px",
+      "borderRadius": "8px",
+      "backgroundColor": "#fff",
+      "boxShadow": "0 4px 6px rgba(0, 0, 0, 0.1)"
+    },
+    "button": {
+      "backgroundColor": "#4CAF50",
+      "color": "white",
+      "border": "none",
+      "padding": "15px 32px",
+      "textAlign": "center",
+      "textDecoration": "none",
+      "display": "inline-block",
+      "fontSize": "16px",
+      "borderRadius": "4px"
+    }
+  },
+  "js": {
+    "events": [
+      {
+        "element": "#btnClick",
+        "event": "click",
+        "action": "alert('Botão clicado!')"
       }
     ]
   }
