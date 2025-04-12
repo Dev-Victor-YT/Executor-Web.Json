@@ -1,44 +1,57 @@
 {
-  "tag": "div",
-  "attrs": {
-    "id": "tela-login",
-    "style": "max-width: 300px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9; font-family: Arial;"
-  },
-  "children": [
-    {
-      "tag": "h2",
-      "text": "Login",
-      "attrs": {
-        "style": "text-align: center; margin-bottom: 20px;"
-      }
-    },
-    {
-      "tag": "input",
-      "attrs": {
-        "type": "text",
-        "placeholder": "Usuário",
-        "id": "usuario",
-        "style": "width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;"
-      }
-    },
-    {
-      "tag": "input",
-      "attrs": {
-        "type": "password",
-        "placeholder": "Senha",
-        "id": "senha",
-        "style": "width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px;"
-      }
-    },
-    {
-      "tag": "button",
-      "text": "Entrar",
-      "attrs": {
-        "style": "width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;"
+  "css": "body { margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(to right, #667eea, #764ba2); display: flex; justify-content: center; align-items: center; height: 100vh; } .login-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.2); width: 300px; } .login-container h2 { margin-bottom: 20px; color: #333; } .input-group { margin-bottom: 15px; display: flex; flex-direction: column; } .input-group label { font-size: 14px; margin-bottom: 5px; color: #555; } .input-group input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; } .login-button { background-color: #667eea; color: white; padding: 10px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; } .login-button:hover { background-color: #5a67d8; }",
+  "html": {
+    "tag": "div",
+    "attrs": { "class": "login-container" },
+    "children": [
+      {
+        "tag": "h2",
+        "text": "Login"
       },
-      "events": {
-        "click": "const u = document.getElementById('usuario').value; const s = document.getElementById('senha').value; alert('Usuário: ' + u + '\\nSenha: ' + s);"
+      {
+        "tag": "div",
+        "attrs": { "class": "input-group" },
+        "children": [
+          {
+            "tag": "label",
+            "text": "Email"
+          },
+          {
+            "tag": "input",
+            "attrs": {
+              "type": "email",
+              "placeholder": "Digite seu email",
+              "id": "email"
+            }
+          }
+        ]
+      },
+      {
+        "tag": "div",
+        "attrs": { "class": "input-group" },
+        "children": [
+          {
+            "tag": "label",
+            "text": "Senha"
+          },
+          {
+            "tag": "input",
+            "attrs": {
+              "type": "password",
+              "placeholder": "Digite sua senha",
+              "id": "senha"
+            }
+          }
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "Entrar",
+        "attrs": { "class": "login-button" },
+        "events": {
+          "click": "const email = document.getElementById('email').value; const senha = document.getElementById('senha').value; alert('Login: ' + email + '\\nSenha: ' + senha);"
+        }
       }
-    }
-  ]
+    ]
+  }
 }
