@@ -1,118 +1,36 @@
 {
-  "head": {
-    "meta": [
+  "html": {
+    "tag": "div",
+    "attributes": {
+      "id": "app",
+      "style": "padding: 20px; font-family: Arial;"
+    },
+    "children": [
       {
-        "charset": "UTF-8"
+        "tag": "h1",
+        "text": "Bem-vindo à minha Web JSON"
       },
       {
-        "name": "viewport",
-        "content": "width=device-width, initial-scale=1.0"
-      }
-    ],
-    "link": [
+        "tag": "p",
+        "text": "Esta é uma página gerada com estrutura JSON."
+      },
       {
-        "rel": "stylesheet",
-        "href": "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        "tag": "button",
+        "attributes": {
+          "onclick": "alert('Você clicou no botão!')",
+          "style": "padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px;"
+        },
+        "text": "Clique aqui"
       }
     ]
   },
-  "body": {
-    "container": {
-      "elemento": "div",
-      "atributos": {
-        "class": "container d-flex justify-content-center align-items-center min-vh-100"
-      },
-      "conteúdo": [
-        {
-          "elemento": "div",
-          "atributos": {
-            "class": "card",
-            "style": "width: 18rem;"
-          },
-          "conteúdo": [
-            {
-              "elemento": "div",
-              "atributos": {
-                "class": "card-body"
-              },
-              "conteúdo": [
-                {
-                  "elemento": "h5",
-                  "atributos": {
-                    "class": "card-title text-center"
-                  },
-                  "conteúdo": "Login"
-                },
-                {
-                  "elemento": "form",
-                  "atributos": {
-                    "action": "#",
-                    "method": "POST"
-                  },
-                  "conteúdo": [
-                    {
-                      "elemento": "div",
-                      "atributos": {
-                        "class": "form-group"
-                      },
-                      "conteúdo": [
-                        {
-                          "elemento": "label",
-                          "atributos": {
-                            "for": "username"
-                          },
-                          "conteúdo": "Usuário"
-                        },
-                        {
-                          "elemento": "input",
-                          "atributos": {
-                            "type": "text",
-                            "class": "form-control",
-                            "id": "username",
-                            "placeholder": "Digite seu nome de usuário"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "elemento": "div",
-                      "atributos": {
-                        "class": "form-group"
-                      },
-                      "conteúdo": [
-                        {
-                          "elemento": "label",
-                          "atributos": {
-                            "for": "password"
-                          },
-                          "conteúdo": "Senha"
-                        },
-                        {
-                          "elemento": "input",
-                          "atributos": {
-                            "type": "password",
-                            "class": "form-control",
-                            "id": "password",
-                            "placeholder": "Digite sua senha"
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "elemento": "button",
-                      "atributos": {
-                        "type": "submit",
-                        "class": "btn btn-primary btn-block"
-                      },
-                      "conteúdo": "Entrar"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+  "css": {
+    "body": {
+      "margin": "0",
+      "backgroundColor": "#f4f4f4"
     }
+  },
+  "js": {
+    "init": "console.log('Web JSON carregada com sucesso');"
   }
 }
